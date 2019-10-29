@@ -9,10 +9,10 @@ int main(int argc, const char * argv[]) {
     }
     try {
         std::cout << calculate(argv[1]) << std::endl;
-    } catch (std::invalid_argument) {
+    } catch (const std::invalid_argument&) {
         std::cerr << "unable to parse equation" << std::endl;
         return -1;
-    } catch (std::overflow_error e) {
+    } catch (const std::overflow_error& e) {
         std::cerr << e.what() << std::endl;
         return -1;
     }
