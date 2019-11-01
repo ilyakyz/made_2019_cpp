@@ -5,6 +5,9 @@
 
 Allocator::Allocator(size_t maxSize): max_size(maxSize), offset(0) {
     memory = static_cast<char*>(std::malloc(maxSize));
+    if (memory == nullptr) {
+        throw std::bad_alloc();
+    }
 };
 
 Allocator::~Allocator() {
