@@ -2,7 +2,6 @@
 #include <sstream>
 #include "big_int.hpp"
 
-
 int main(int argc, const char * argv[]) {
     {
         BigInt b1(123);
@@ -24,6 +23,10 @@ int main(int argc, const char * argv[]) {
         assert(b2 == BigInt(123));
         assert(b2 == 123);
         assert(-1234567891 == b4);
+        b3 = b3;
+        assert(b3 == 1234);
+        b3 = b1;
+        assert(b3 == 123);
     }
     {
         BigInt b1(87);

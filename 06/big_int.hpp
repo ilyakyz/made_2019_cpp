@@ -5,6 +5,7 @@
 #include <iostream>
 #include <cmath>
 
+
 static_assert(DIGIT_SIZE <= 1e18, "digit size too big");
 
 class BigInt {
@@ -37,9 +38,26 @@ public:
         std::copy(big_int.digits, big_int.digits + size, digits);
     }
     
-    // not implemented
-    BigInt& operator=(const BigInt& big_int) = delete;
-    BigInt& operator=(BigInt&& big_int) = delete;
+
+    BigInt& operator=(const BigInt& big_int) {
+        if (big_int == *this)
+            return *this;
+        int64_t* new_digits = new int64_t[big_int.size];
+        delete[] digits;
+        digits = new_digits;
+        std::copy(big_int.digits, big_int.digits + big_int.size, digits);
+        positive = big_int.positive;
+        size = big_int.size;
+        return *this;
+    };
+
+    BigInt& operator=(BigInt&& big_int) {
+        digits = big_int.digits;
+        positive = big_int.positive;
+        size = big_int.size;
+        big_int.digits = nullptr;
+        return *this;
+    }
     
     ~BigInt() {
         delete[] digits;

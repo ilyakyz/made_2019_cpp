@@ -143,12 +143,16 @@ bool operator != (const BigInt& first, const BigInt& second) {
 }
 
 std::ostream& operator << (std::ostream& out, const BigInt& big_int) {
+    std::ios state(NULL);
+    state.copyfmt(out);
+
     if (!big_int.positive)
         out << '-';
     out << big_int.digits[big_int.size - 1];
-        
+
     for (int64_t i = static_cast<int64_t>(big_int.size) - 2; i >= 0; --i) {
         out << std::setw(log10(DIGIT_SIZE)) << std::setfill('0') << big_int.digits[i];
     }
+    out.copyfmt(state);
     return out;
 }
